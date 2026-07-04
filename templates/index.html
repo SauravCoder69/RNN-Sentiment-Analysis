@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Analysis</title>
+
+    <style>
+
+        body{
+            font-family: Arial, sans-serif;
+            margin:40px;
+        }
+
+        textarea{
+            width:400px;
+            height:120px;
+            padding:10px;
+        }
+
+        button{
+            margin-top:10px;
+            padding:10px 20px;
+            cursor:pointer;
+        }
+
+        #result{
+            margin-top:20px;
+            font-size:20px;
+            font-weight:bold;
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <h2>Sentiment Analysis using RNN</h2>
+
+    <textarea
+        id="review"
+        placeholder="Enter your review">
+    </textarea>
+
+    <br>
+
+    <button onclick="predictSentiment()">
+        Predict
+    </button>
+
+    <div id="result"></div>
+
+<script>
+
+async function predictSentiment(){
+
+    const review = document.getElementById("review").value;
+
+    const formData = new FormData();
+
+    formData.append("review",review);
+
+    const response = await fetch("/predict",{
+
+        method:"POST",
+
+        body:formData
+
+    });
+
+    const data = await response.json();
+
+    document.getElementById("result").innerHTML =
+    `
+    Sentiment : ${data.sentiment} <br>
+    Confidence : ${data.confidence} %
+    `;
+
+}
+
+</script>
+
+</body>
+</html>
