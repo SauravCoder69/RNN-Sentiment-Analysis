@@ -8,6 +8,7 @@ from nltk.tokenize import word_tokenize
 from nltk.stem import PorterStemmer
 
 nltk.download("punkt")
+nltk.download("punkt_tab")
 
 app = Flask(__name__)
 
